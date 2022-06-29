@@ -3,5 +3,7 @@
         <file>qml/main.qml</file>
         <file>widgets/qmldir</file>
         <file>widgets/MapWidget.qml</file>
+        <file>widgets/Marker.qml</file>
+        <file>widgets/CustomMapCircle.qml</file>
     </qresource>
 </RCC>

@@ -11,29 +11,30 @@ Window {
     id: mainWindow
     minimumWidth: 1280
     minimumHeight: 720
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
+    width: 1280
+    height: 720
+//    width: Screen.desktopAvailableWidth
+//    height: Screen.desktopAvailableHeight
     visible: true
     title: qsTr("Polygon editor on the map")
 
+    property MapCircle circle
     Plugin {
         id: mapPlugin
-        name: "osm" // "mapboxgl", "esri", ...
-        // specify plugin parameters if necessary
-        // PluginParameter {
-        //     name:
-        //     value:
-        // }
+        name: "osm"
     }
 
-    Map {
+
+    MapWidget {
         anchors.fill: parent
-        plugin: mapPlugin
-        center: QtPositioning.coordinate(60.035, 30.283) // :)
-        zoomLevel: 15
+        id: map
     }
+
+
+
     Shortcut {
         sequences: ["Ctrl+Q"]
         onActivated: Qt.quit()
     }
+
 }
