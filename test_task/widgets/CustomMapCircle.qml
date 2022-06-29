@@ -13,7 +13,7 @@ MapCircle {
     border.width: 3
 
     Component.onCompleted: {
-        index = map.markers.length
+        index = map.myMarkers.length
         console.log("index=", index)
     }
 

@@ -30,6 +30,19 @@ Window {
         id: map
     }
 
+    Button {
+        id: resetButton
+        width: 100
+        height: 50
+        anchors.margins: 20
+        anchors.left: parent.left
+        anchors.top: parent.top
+        text: "Сбросить"
+        onClicked: {
+            map.clearMapItems()
+        }
+    }
+
 
 
     Shortcut {
