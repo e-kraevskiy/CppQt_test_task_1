@@ -7,9 +7,9 @@ MapCircle {
     id: root
 
     property int index: 0
-    radius: 20
+    radius: 30
     color: "red"
-    opacity: 0.5
+    opacity: 0.8
     border.width: 3
 
     Component.onCompleted: {
@@ -32,30 +32,19 @@ MapCircle {
         onPressAndHold: {
             target = root
             root.color = "yellow"
-//            drag.target: root
             console.log("onPressAndHold")
-            map.gesture.enabled = false
-//            root.center = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-            mouse.accepted = false
 
         }
         onReleased: {
             map.moveMarker(index)
             root.color = "red"
-            target = null
-            mouse.accepted = false
-            map.gesture.enabled = true
         }
     }
     Item {
         anchors.fill: parent
         Text{
+            id: numberText
             anchors.fill: parent
-            id: number
-            opacity: 1
-            y: root.y
-            width: root.width
-            height: root.height
             color: "black"
             font.bold: true
             font.pixelSize: 10

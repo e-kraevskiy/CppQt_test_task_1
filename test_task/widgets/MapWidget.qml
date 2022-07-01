@@ -25,28 +25,24 @@ Map {
 
     anchors.fill: parent
     plugin: mapPlugin
-    center: QtPositioning.coordinate(60.035, 30.283) // :)
+    center: QtPositioning.coordinate(54.992, 73.369) // :)
     zoomLevel: 15
-    maximumTilt: 0
+//    maximumTilt: 0
 
 
     Component.onCompleted: {
         myMarkers = new Array(0);
         markers = new Array(0);
         mapItems = new Array(0);
-        circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
-        circle.center = map.center
-        circle.radius = 10.0
-        circle.color = 'green'
-        circle.border.width = 3
-        map.addMapItem(circle)
     }
 
     MapPolygon {
         id: polygone
         color: 'orange'
+        border.width: 5
         opacity: 0.4
         }
+
 
 
     MouseArea {
@@ -63,8 +59,10 @@ Map {
         }
 
         onClicked: {
-            polygone.addCoordinate(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
-            addCircle(map.toCoordinate(Qt.point(mouse.x,mouse.y)))
+            var coord = map.toCoordinate(Qt.point(mouse.x,mouse.y))
+
+            polygone.addCoordinate(coord)
+            addCircle(coord)
 //            addMarker()
         }
     }
@@ -112,18 +110,29 @@ Map {
 
     function removeMarker(index) {
 
-        var count = map.markers.length
+        console.log("remocing index=", index)
+        var count = map.myMarkers.length
+        console.log("map.markers.length", map.myMarkers.length)
         var path = new Array(0)
         var myArray = new Array(0)
         markerCounter--
+        // Формируем новый массив узлов
         for (var i = 0; i < count; i++) {
             if (index === i) {continue}
             myMarkers[i].index = i
             path.push(myMarkers[i].center)
-            myArray.push(markers[i])
+            myArray.push(myMarkers[i])
         }
+
         map.removeMapItem(myMarkers[index])
-       polygone.removeCoordinate(myMarkers[index].center)
+        console.log("myArray length", myArray.length)
+        myMarkers = myArray
+        // Обновляем полигон и узлы
+        polygone.path = path
+        // Обновляем индексы узлов
+        for (var j = 0; j < myArray.length; j++) {
+            myMarkers[j].index = j
+        }
     }
 
     function removePolynom() {
