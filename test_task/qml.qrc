@@ -6,5 +6,6 @@
         <file>widgets/Marker.qml</file>
         <file>widgets/CustomMapCircle.qml</file>
         <file>widgets/EdgeCircle.qml</file>
+        <file>widgets/SettingsWidget.qml</file>
     </qresource>
 </RCC>

@@ -14,13 +14,11 @@ Map {
     property variant myMarkers
     property variant edgeMarkers
     property variant mapItems
-    property int markerCounter: 0 // counter for total amount of markers. Resets to 0 when number of markers = 0
-    property int currentMarker
-//    property int lastX : -1
-//    property int lastY : -1
-//    property int pressX : -1
-//    property int pressY : -1
-    property int jitterThreshold : 30
+
+    property real polygonOpacity: 0.4
+    property int markerSize: 30
+    property bool edgeMarkersVisible: false
+
 
 
 
@@ -42,7 +40,7 @@ Map {
         id: polygone
         color: 'orange'
         border.width: 5
-        opacity: 0.4
+        opacity: polygonOpacity
         }
 
 
@@ -125,11 +123,9 @@ Map {
         }
         // если добавляем последний узел
         if (index === count-1) {
-            console.log("sdfjasdfjsd")
             myArray.push(circle)
             path.push(circle.center)
         }
-
         polygone.path = path
         myMarkers = myArray
         moveEdgeMarker(index+1, coordinates)
@@ -254,6 +250,18 @@ Map {
                           + myMarkers[next].center.latitude) / 2
         coord.longitude = (myMarkers[prev].center.longitude
                            + myMarkers[next].center.longitude) / 2
+    }
+    function resetPolygon() {
+//        map.clearMapItems()
+        for (var i = 0; i < myMarkers.length; i++) {
+            map.removeMapItem(myMarkers[i])
+        }
+        for (var j = 0; j < edgeMarkers.length; j++) {
+            map.removeMapItem(edgeMarkers[j])
+        }
+        map.myMarkers = new Array(0);
+        map.edgeMarkers = new Array(0);
+        polygone.path = new Array(0);
     }
 }
 

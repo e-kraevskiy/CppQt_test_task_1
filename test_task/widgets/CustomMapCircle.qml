@@ -7,7 +7,7 @@ MapCircle {
     id: root
 
     property int index: 0
-    radius: 30
+    radius: map.markerSize
     color: "red"
     opacity: 0.8
     border.width: 3
@@ -47,6 +47,7 @@ MapCircle {
             map.gesture.enabled = true
             mouse.accepted = false
         }
+
     }
     Item {
         anchors.fill: parent
@@ -61,16 +62,6 @@ MapCircle {
             text: index.toString()
         }
     }
-
-
-    //        center =
-    //        circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
-    //        circle.center = coordinates
-    //            circle.center = positionSource.position.coordinate
-    //        circle.radius = 10.0
-    //        circle.color = 'green'
-    //        circle.border.width = 3
-    //        map.addMa/pItem(circle)
 }
 
 

@@ -33,16 +33,34 @@ Window {
         id: map
     }
 
+    SettingsWidget {
+        id: settingsWidget
+        anchors.margins: 20
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+    }
+
     Button {
         id: resetButton
         width: 100
         height: 50
+
         anchors.margins: 20
         anchors.left: parent.left
         anchors.top: parent.top
         text: "Сбросить"
+
+        background: Rectangle {
+            radius: 5
+            color: "lightgray"
+            opacity: 0.8
+            border.color: "black"
+            border.width: 2
+        }
+
         onClicked: {
-            map.clearMapItems()
+            map.resetPolygon()
         }
     }
 
