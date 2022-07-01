@@ -7,14 +7,12 @@ MapCircle {
 
     property int index: 0
     radius: 20
-    color: "green"
-    opacity: map.edgeMarkersVisible ? 0.8 : 0
+    color: "lightgreen"
+    opacity: (map.edgeMarkersVisible || mouseArea.containsMouse) ? 0.8 : 0
     border.width: 3
     Component.onCompleted: {
         index = map.edgeMarkers.length
     }
-
-
 
     MouseArea {
         id: mouseArea
@@ -24,9 +22,13 @@ MapCircle {
         drag.target: target
         property var target: null
 
-        onEntered: root.color = "orange"
+        onEntered: {
+            root.color = "orange"
+        }
 
-        onExited: root.color = "green"
+        onExited: {
+            root.color = "lightgreen"
+        }
 
         onClicked: {
             var coord = map.toCoordinate(Qt.point(mouse.x,mouse.y))

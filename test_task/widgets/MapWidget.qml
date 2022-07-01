@@ -10,10 +10,8 @@ import widgets 1.0
 Map {
     id: map
 
-    property variant markers
     property variant myMarkers
     property variant edgeMarkers
-    property variant mapItems
 
     property real polygonOpacity: 0.4
     property int markerSize: 30
@@ -26,14 +24,11 @@ Map {
     plugin: mapPlugin
     center: QtPositioning.coordinate(54.992, 73.369)
     zoomLevel: 15
-//    maximumTilt: 0
 
 
     Component.onCompleted: {
         myMarkers = new Array(0);
         edgeMarkers = new Array(0);
-        markers = new Array(0);
-        mapItems = new Array(0);
     }
 
     MapPolygon {
@@ -44,27 +39,15 @@ Map {
         }
 
 
-
     MouseArea {
         id: mouseArea
-        property variant lastCoordinate
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         anchors.fill: parent
 
-        onPressed : {
-//            map.lastX = mouse.x
-//            map.lastY = mouse.y
-//            map.pressX = mouse.x
-//            map.pressY = mouse.y
-            lastCoordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y))
-        }
-
         onClicked: {
             var coord = map.toCoordinate(Qt.point(mouse.x,mouse.y))
-
             polygone.addCoordinate(coord)
             addCircle(coord)
-//            addMarker()
         }
     }
 
@@ -74,14 +57,6 @@ Map {
         map.addMapItem(circle)
 
         myMarkers.push(circle)
-        //update list of markers
-//        var count = map.myMarkers.length
-//        var myArray = new Array(0)
-//        for (var i = 0; i < count; i++) {
-//            myArray.push(myMarkers[i])
-//        }
-//        myArray.push(circle)
-//        myMarkers = myArray
         // Добавление узлов на ребрах
         if (myMarkers.length === 2) {
             addAdgeMarker(1, 0, coordinates)
@@ -135,7 +110,6 @@ Map {
     function moveMarker(index) {
         var path = polygone.path;
         path[index] = myMarkers[index].center
-//        path[index] = markers[index].center
         polygone.path = path
         if (myMarkers.length === 1) return
         if (myMarkers.length === 2) {
@@ -251,8 +225,9 @@ Map {
         coord.longitude = (myMarkers[prev].center.longitude
                            + myMarkers[next].center.longitude) / 2
     }
+
+    // Очистка всех обхъектов полигона на карте
     function resetPolygon() {
-//        map.clearMapItems()
         for (var i = 0; i < myMarkers.length; i++) {
             map.removeMapItem(myMarkers[i])
         }

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(test_task LANGUAGES CXX)
+project(polygone_editor LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -41,12 +41,10 @@ FIND_PACKAGE(OpenCV REQUIRED)
 
 # Сюда добавляем .h-ки из директории include
 set(PROJECT_HEADERS
-#  include/mouse_handler.h
   )
 # Сюда добавляем .cpp-ки из директории src
 set(PROJECT_SOURCES
   src/main.cpp
-#  src/mouse_handler.cpp
   )
 # Сюда добавляем .qrc-ки
 set(PROJECT_RESOURCES
@@ -80,7 +78,7 @@ add_executable(${PROJECT_NAME}
   )
 
 
-target_compile_definitions(test_task
+target_compile_definitions(polygone_editor
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
   Qt5::Core

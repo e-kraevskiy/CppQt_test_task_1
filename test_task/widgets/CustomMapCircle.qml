@@ -27,20 +27,17 @@ MapCircle {
         onClicked: {
             if (mouse.button == Qt.RightButton) {
                 map.removeMarker(index)
-                console.log("right click")
             }
         }
         onPressAndHold: {
             target = root
             root.color = "yellow"
-            console.log("onPressAndHold")
             map.gesture.enabled = false
             mouse.accepted = false
         }
         onReleased: {
             if (mouse.button == Qt.RightButton)
                 return
-            console.log("onReleased")
             target = null
             map.moveMarker(index)
             root.color = "red"
@@ -56,7 +53,7 @@ MapCircle {
             anchors.fill: parent
             color: "black"
             font.bold: true
-            font.pixelSize: 10
+            font.pixelSize: 14
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: index.toString()

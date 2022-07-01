@@ -16,14 +16,6 @@ int main(int argc, char *argv[])
     engine.addImportPath("qrc:/");
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 
-//    MouseHandler mouse_handler_;
-//    engine.rootContext()->setContextProperty("mouse_handler_",
-//                                             &mouse_handler_);
-
-    // Конексты к мудулу работы с файлами
-//    QObject::connect(&file_module_, SIGNAL(setPreviousResult(int)),
-//                &mouse_handler_, SLOT(setDistance(int)));
-
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
