@@ -17,9 +17,6 @@ Map {
     property int markerSize: 30
     property bool edgeMarkersVisible: false
 
-
-
-
     anchors.fill: parent
     plugin: mapPlugin
     center: QtPositioning.coordinate(54.992, 73.369)
@@ -47,11 +44,11 @@ Map {
         onClicked: {
             var coord = map.toCoordinate(Qt.point(mouse.x,mouse.y))
             polygone.addCoordinate(coord)
-            addCircle(coord)
+            addMarker(coord)
         }
     }
-
-    function addCircle(coordinates) {
+    // Добавить узел (круг) в конец
+    function addMarker(coordinates) {
         var circle = Qt.createQmlObject('CustomMapCircle {}', map)
         circle.center = coordinates
         map.addMapItem(circle)
@@ -71,7 +68,7 @@ Map {
 
         }
     }
-
+    // Вставить маркер не в конец
     function insertMarker(index) {
         var circle = Qt.createQmlObject('CustomMapCircle {}', map)
 
@@ -106,11 +103,12 @@ Map {
         moveEdgeMarker(index+1, coordinates)
         insertEdgeMarker(index)
     }
-
+    // Передвинуть узел
     function moveMarker(index) {
         var path = polygone.path;
         path[index] = myMarkers[index].center
         polygone.path = path
+        // Двигаем маркеры на ребрах
         if (myMarkers.length === 1) return
         if (myMarkers.length === 2) {
             moveEdgeMarker(0, edgeMarkers[0].center)
@@ -124,7 +122,7 @@ Map {
             }
         }
     }
-
+    // Удалить узел по индексу
     function removeMarker(index) {
         var count = map.myMarkers.length
         var path = new Array(0)
@@ -153,7 +151,7 @@ Map {
             removeAdgeMarker(index)
         }
     }
-
+    // Добавить маркер на ребре в конец
     function addAdgeMarker(firstIndex, secondIndex, coord) {
         var tmpPoint = coord
         tmpPoint.latitude = (myMarkers[firstIndex].center.latitude
@@ -165,7 +163,7 @@ Map {
         map.addMapItem(edgeCircle)
         edgeMarkers.push(edgeCircle)
     }
-
+    // Вставить маркер на ребре при добавлении узла не в конец
     function insertEdgeMarker(index) {
         var marker = Qt.createQmlObject('EdgeCircle {}', map)
         var coordinates = edgeMarkers[index].center
@@ -213,7 +211,7 @@ Map {
             edgeMarkers[j].index = j
         }
     }
-
+    // Сдвинуть маркер на ребре, по положению сосоедних узлов
     function moveEdgeMarker(index, coord) {
         var prev = index
         var next = index+1

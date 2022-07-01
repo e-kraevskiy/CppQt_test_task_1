@@ -14,7 +14,6 @@ MapCircle {
 
     Component.onCompleted: {
         index = map.myMarkers.length
-        console.log("index=", index)
     }
 
     MouseArea {
