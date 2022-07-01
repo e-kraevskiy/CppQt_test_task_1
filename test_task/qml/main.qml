@@ -19,6 +19,9 @@ Window {
     title: qsTr("Polygon editor on the map")
 
     property MapCircle circle
+
+
+
     Plugin {
         id: mapPlugin
         name: "osm"

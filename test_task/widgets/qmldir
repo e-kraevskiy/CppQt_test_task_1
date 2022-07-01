@@ -2,3 +2,4 @@ module widgets
 MapWidget 1.0 MapWidget.qml
 Marker 1.0 Marker.qml
 CustomMapCircle 1.0 CustomMapCircle.qml
+EdgeCircle 1.0 EdgeCircle.qml

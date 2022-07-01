@@ -23,6 +23,7 @@ MapCircle {
         drag.target: target
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         property var target: null
+
         onClicked: {
             if (mouse.button == Qt.RightButton) {
                 map.removeMarker(index)
@@ -33,11 +34,18 @@ MapCircle {
             target = root
             root.color = "yellow"
             console.log("onPressAndHold")
-
+            map.gesture.enabled = false
+            mouse.accepted = false
         }
         onReleased: {
+            if (mouse.button == Qt.RightButton)
+                return
+            console.log("onReleased")
+            target = null
             map.moveMarker(index)
             root.color = "red"
+            map.gesture.enabled = true
+            mouse.accepted = false
         }
     }
     Item {
